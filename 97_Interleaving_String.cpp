@@ -14,22 +14,29 @@ Note: a + b is the concatenation of strings a and b.
 class Solution {
 public:
     bool isInterleave(string s1, string s2, string s3) {
-        //credit to xz2210
-        int n1 = (int)s1.size(), n2 = (int)s2.size(), n3 = (int)s3.size(); 
-        if(n1 + n2 != n3) return false;
-        
-        vector<vector<bool>> dp(n1 + 1, vector<bool>(n2 + 1, false));
-        dp[0][0] = true;
-        
-        for(int i2 = 1; i2 <= n2; i2++) dp[0][i2] = dp[0][i2 - 1] && s2[i2 - 1] == s3[i2 - 1];
-        for(int i1 = 1; i1 <= n1; i1++) dp[i1][0] = dp[i1 - 1][0] && s1[i1 - 1] == s3[i1 - 1];
+        //credit to sherryxmhe
+        int n1 = s1.length(), n2= s2.length(), n3 = s3.length();
+        if(n1 + n2 != n3)return false;
 
-        for(int i1 = 1; i1 <= n1; i1++){
-            for(int i2 = 1; i2 <= n2; i2++){
-                dp[i1][i2] = (dp[i1 - 1][i2] && s1[i1 - 1] == s3[i1 + i2 - 1]) || (dp[i1][i2 - 1] && s2[i2 - 1] == s3[i1 + i2 - 1]);
+        vector<vector<bool>> dp(n1 + 1, vector<bool> (n2 + 1, false));
+        /*
+        DP table represents if s3 is interleaving at (i+j)th position when s1 is at ith position, and s2 is at jth position. 0th position means empty string.
+
+So if both s1 and s2 is currently empty, s3 is empty too, and it is considered interleaving. If only s1 is empty, then if previous s2 position is interleaving and current s2 position char is equal to s3 current position char, it is considered interleaving. similar idea applies to when s2 is empty. when both s1 and s2 is not empty, then if we arrive i, j from i-1, j, then if i-1,j is already interleaving and i and current s3 position equal, it s interleaving. If we arrive i,j from i, j-1, then if i, j-1 is already interleaving and j and current s3 position equal. it is interleaving.
+        */
+        for(int i = 0; i <= n1; i++){
+            for(int j = 0; j <= n2; j++){
+                if(i == 0 && j == 0){
+                    dp[i][j] = true;
+                }else if(i == 0){
+                    dp[i][j] = (dp[i][j - 1]) && (s2[j - 1] == s3[i + j -1]);
+                }else if(j == 0){
+                    dp[i][j] = (dp[i - 1][j]) && (s1[i - 1] == s3[i + j -1]);
+                }else{
+                    dp[i][j] = (dp[i - 1][j]) && (s1[i - 1] == s3[i + j -1]) || (dp[i][j - 1]) && (s2[j - 1] == s3[i + j -1]);
+                }
             }
         }
-        
-        return dp[n1][n2];  
+        return dp[n1][n2];
     }
 };
