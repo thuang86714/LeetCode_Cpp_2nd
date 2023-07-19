@@ -14,11 +14,12 @@ using namespace std;
 void merge(int array[], int const left, int const mid,
 		int const right)
 {
-	int const subArrayOne = mid - left + 1;
-	int const subArrayTwo = right - mid;
+	/*
+	int const subArrayOne = mid - left + 1;//mid included
+	int const subArrayTwo = right - mid;//mid not included
 
 	// Create temp arrays
-	auto *leftArray = new int[subArrayOne],
+	auto *leftArray = new int[subArrayOne],//pointer to the first element of this int array
 		*rightArray = new int[subArrayTwo];
 
 	// Copy data to temp arrays leftArray[] and rightArray[]
@@ -66,19 +67,77 @@ void merge(int array[], int const left, int const mid,
 	}
 	delete[] leftArray;
 	delete[] rightArray;
+	*/
+	/*
+	int const subArrayLeft = mid - left +1;
+	int const subArrayRight = right - mid;
+
+	auto *leftArray = new int[subArrayLeft];
+	auto *rightArray = new int[subArrayRight];
+	*/
+	int const subArrayLeft = mid - left +1;
+	int const subArrayRight = right - mid;
+	vector<int> leftArray(subArrayLeft, 0);
+	vector<int> rightArray(subArrayRight, 0);
+	for(int i = 0; i < subArrayLeft; i++){
+		leftArray[i] = array[left + i];
+	}
+
+	for(int j = 0; j < subArrayRight; j++){
+		rightArray[j] = array[mid + 1 + j];
+	}
+
+	auto idxSubarrayLeft = 0, idxSubarrayRight = 0;
+	int idxMergedArray = left;
+
+	while(idxSubarrayLeft < subArrayLeft && idxSubarrayRight < subArrayRight){
+		if(leftArray[idxSubarrayLeft] <= rightArray[idxSubarrayRight]){
+			array[idxMergedArray] = leftArray[idxSubarrayLeft];
+			idxSubarrayLeft++;
+		}else{
+			array[idxMergedArray] = rightArray[idxSubarrayRight];
+			idxSubarrayRight++;
+		}
+		idxMergedArray++;
+	}
+
+	while(idxSubarrayLeft < subArrayLeft){
+		array[idxMergedArray] = leftArray[idxSubarrayLeft];
+		idxMergedArray++;
+		idxSubarrayLeft++;
+	}
+
+	while(idxSubarrayRight < subArrayRight){
+		array[idxMergedArray] = rightArray[idxSubarrayRight];
+		idxMergedArray++;
+		idxSubarrayRight++;
+	}
+
+	//delete[] leftArray;
+	//delete[] rightArray;
+	
 }
 
 // begin is for left index and end is right index
 // of the sub-array of arr to be sorted
 void mergeSort(int array[], int const begin, int const end)
 {
-	if (begin >= end)
+	/*
+	if (begin >= end)//base case
 		return;
 
 	int mid = begin + (end - begin) / 2;
-	mergeSort(array, begin, mid);
+	mergeSort(array, begin, mid);//divide and conquer
 	mergeSort(array, mid + 1, end);
 	merge(array, begin, mid, end);
+	*/
+
+	if(begin >= end)return;//base case
+	int mid = (begin + end)/2;
+	mergeSort(array, begin, mid);
+	mergeSort(array, mid+1, end);
+	merge(array, begin, mid, end);
+
 }
 
 // UTILITY FUNCTIONS
