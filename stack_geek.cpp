@@ -14,12 +14,17 @@ class Stack {
 public:
 	int a[MAX]; // Maximum size of Stack
 
-	Stack() { top = -1; }
+	Stack() { top = -1; }//constructor
+	~Stack();//destructor
 	bool push(int x);
 	int pop();
 	int peek();
 	bool isEmpty();
 };
+
+Stack::~Stack(){
+	delete[] a;
+}
 
 bool Stack::push(int x)
 {

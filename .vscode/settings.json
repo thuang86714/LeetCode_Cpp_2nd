@@ -55,6 +55,17 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "cmake.configureOnOpen": true,
   "files.associations": {
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "*.tcc": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "condition_variable": "cpp",
+    "algorithm": "cpp",
+    "istream": "cpp",
+    "limits": "cpp",
+    "mutex": "cpp",
+    "shared_mutex": "cpp",
+    "streambuf": "cpp",
+    "thread": "cpp"
   }
 }
