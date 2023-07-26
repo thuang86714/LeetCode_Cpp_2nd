@@ -66,6 +66,8 @@
     "mutex": "cpp",
     "shared_mutex": "cpp",
     "streambuf": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "vector": "cpp",
+    "unordered_map": "cpp"
   }
 }
