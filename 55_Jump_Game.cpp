@@ -22,7 +22,7 @@ Constraints:
 1 <= nums.length <= 104
 0 <= nums[i] <= 105
 */
-
+#include <bits/stdc++.h>
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
