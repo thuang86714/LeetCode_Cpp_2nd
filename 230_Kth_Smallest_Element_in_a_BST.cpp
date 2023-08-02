@@ -22,6 +22,8 @@ Follow up: If the BST is modified often (i.e., we can do insert and delete opera
 //both solutions'credit to dhruba-datta
 class Solution {
 public:
+    //credit to dhruba-datta
+    //dfs
     int ans;
     
     int kthSmallest(TreeNode* root, int k) {
@@ -29,7 +31,7 @@ public:
         return ans;
     }
     
-    void inorder(TreeNode* root, int& k) {
+    void inorder(TreeNode* root, int& k) {//pass by reference of k is must for it to work
         if (!root) return;
         inorder(root->left, k);
         if (--k == 0){
